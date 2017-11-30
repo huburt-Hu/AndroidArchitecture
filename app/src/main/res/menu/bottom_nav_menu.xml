@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:checked="true"
+        android:icon="@drawable/selector_main_home_ic"
+        android:title="@string/main_home" />
+    <item
+        android:id="@+id/category"
+        android:icon="@drawable/selector_main_category_ic"
+        android:title="@string/main_category" />
+    <item
+        android:id="@+id/dynamic"
+        android:icon="@drawable/selector_main_dynamic_ic"
+        android:title="@string/main_dynamic" />
+    <item
+        android:id="@+id/communicate"
+        android:icon="@drawable/selector_main_communicate_ic"
+        android:title="@string/main_communicate" />
+</menu>

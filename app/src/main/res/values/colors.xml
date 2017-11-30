@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#fb7299</color>
+    <color name="colorPrimaryDark">#b85671</color>
+    <color name="colorAccent">@android:color/black</color>
+
+
+    <!--MainActivity:侧边栏-->
+    <color name="nav_header_text">#FFFFFF</color>
+    <color name="nav_menu_bg">#FFFFFF</color>
+    <color name="nav_menu_checked_bg">#ececec</color>
+    <color name="nav_bottom_line">#DDDDDD</color>
+    <color name="nav_bottom_text">#464646</color>
+
+    <!--NavHomeFragment:底部导航栏-->
+    <color name="bottom_bar_under_line_nav_home">#DDDDDD</color>
+    <color name="bottom_bar_text_select_nav_home">#FA749A</color>
+    <color name="bottom_bar_text_unselect_nav_home">#87888A</color>
+
+    <!--MainHomeFragment/MainCategoryFragment/MainDynamivFragment/MainCommunicateFragment:顶部导航栏-->
+    <color name="toolbar_title_fragment">#FFFFFF</color>
+    <color name="tab_indicator_fragment">#FFFFFF</color>
+    <color name="tab_text_fragment">#FFFFFF</color>
+    <color name="tab_text_selected_fragment">#fb7299</color>
+
+    <!--RecommendFragment-->
+    <color name="item_title_text_recommend">#333333</color>
+    <color name="item_item_dest_text_recommend">#AAAAAA</color>
+    <color name="item_streamer_badge_text_recommend">#fb7299</color>
+    <color name="item_item_yellow_tag_text_recommend">#FB9E60</color>
+    <color name="item_item_gray_tag_text_recommend">#CCCCCC</color>
+    <color name="item_item_av_info_text_recommend">#FFFFFF</color>
+    <color name="item_item_ad_info_text_recommend">#FFFFFF</color>
+
+    <!--CommendFragment-->
+    <color name="top_title_rank_tag_recommend">#F4F4F4</color>
+    <color name="top_left_text_recommend">#FB7299</color>
+    <color name="top_right_text_recommend">#999999</color>
+</resources>
