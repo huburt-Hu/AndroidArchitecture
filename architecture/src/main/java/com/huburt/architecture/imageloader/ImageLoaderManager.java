@@ -22,7 +22,7 @@ public class ImageLoaderManager implements ImageLoader {
         private static final ImageLoaderManager sInstance = new ImageLoaderManager();
     }
 
-    public void setImageLoader(ImageLoader loader) {
+    public void init(ImageLoader loader) {
         if (loader != null)
             imageLoader = loader;
     }
@@ -35,7 +35,7 @@ public class ImageLoaderManager implements ImageLoader {
 
     private void checkNull(ImageLoader imageLoader) {
         if (imageLoader == null) {
-            throw new NullPointerException("please call ImageLoaderManager.setImageLoader(xx) in the application's onCreate");
+            throw new NullPointerException("please call ImageLoaderManager.init(xx) in the application's onCreate");
         }
     }
 
