@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 
 import com.huburt.app.R;
 import com.huburt.app.base.BaseFragment;
-import com.huburt.app.mvvm.v.activity.TabActivity;
 import com.huburt.app.mvvm.v.adapter.TabPagerAdapter;
 import com.huburt.app.widget.TabLayoutIndicatorWidthHelper;
 
@@ -54,12 +53,10 @@ public class MainHomeFragment extends BaseFragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(TabActivity.PlaceholderFragment.newInstance(1, getResources().getString(R.string.tab_text_1)));
-        fragments.add(RecommendFragment.newInstance());
-        fragments.add(TabActivity.PlaceholderFragment.newInstance(3, getResources().getString(R.string.tab_text_3)));
-        fragments.add(TabActivity.PlaceholderFragment.newInstance(4, getResources().getString(R.string.tab_text_4)));
-        fragments.add(TabActivity.PlaceholderFragment.newInstance(5, getResources().getString(R.string.tab_text_5)));
+        List<Fragment> fragments = new ArrayList<Fragment>() {{
+            add(LiveFragment.newInstance());
+            add(RecommendFragment.newInstance());
+        }};
 
         viewPager.setAdapter(new TabPagerAdapter(getChildFragmentManager(), fragments, new String[]{"直播", "推荐", "追番", "影视", "专栏"}));
         tabLayout.setupWithViewPager(viewPager);

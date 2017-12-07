@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:titleEnabled="false">
+
+            <cn.jzvd.JZVideoPlayerStandard
+                android:id="@+id/video_player"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <!--加载动画与文字-->
+            <RelativeLayout
+                android:id="@+id/rl_video_tip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/video_player_start_tip_bg"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/bili_anim"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true" />
+
+                <TextView
+                    android:id="@+id/tv_video_start_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <TextView
+                    android:id="@+id/tv_av"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="av1201239"
+                    android:textColor="@android:color/white"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/tv_play_immediately"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableLeft="@mipmap/ic_fab_play"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:text="@string/v_detail_play_immediately"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white">
+
+        </android.support.design.widget.TabLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:src="@mipmap/ic_fab_play"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_anchor="@id/collapsing_toolbar_layout"
+        app:layout_anchorGravity="bottom|right|end"
+        app:rippleColor="@color/colorPrimaryDark" />
+</android.support.design.widget.CoordinatorLayout>

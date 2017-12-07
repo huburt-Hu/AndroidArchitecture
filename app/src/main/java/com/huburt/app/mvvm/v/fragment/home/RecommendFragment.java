@@ -11,9 +11,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.huburt.app.R;
 import com.huburt.app.base.BaseFragment;
 import com.huburt.app.entity.RecommendMultiItem;
+import com.huburt.app.mvvm.v.activity.VideoActivity;
 import com.huburt.app.mvvm.v.adapter.RecommendMultiItemAdapter;
 import com.huburt.app.mvvm.vm.RecommendViewModel;
 
@@ -40,7 +42,7 @@ public class RecommendFragment extends BaseFragment {
     SwipeRefreshLayout refreshLayout;
 
     private RecommendViewModel viewModel;
-    private RecommendMultiItemAdapter adapter;
+    private RecommendMultiItemAdapter mAdapter;
 
     private int page = 0;
 
@@ -64,17 +66,17 @@ public class RecommendFragment extends BaseFragment {
             @Override
             public void onChanged(@Nullable List<RecommendMultiItem> recommendMultiItems) {
                 refreshLayout.setRefreshing(false);
-                adapter.loadMoreComplete();
+                mAdapter.loadMoreComplete();
                 if (page == 0) {
-                    adapter.setNewData(recommendMultiItems);
+                    mAdapter.setNewData(recommendMultiItems);
                     if (recommendMultiItems == null || recommendMultiItems.size() == 0) {
 //                mAdapter.setEmptyView(getEmptyView());
                     }
                 } else {
                     if (recommendMultiItems != null && recommendMultiItems.size() > 0) {
-                        adapter.addData(recommendMultiItems);
+                        mAdapter.addData(recommendMultiItems);
                     } else {
-                        adapter.loadMoreEnd(true);
+                        mAdapter.loadMoreEnd(true);
                     }
                 }
             }
@@ -89,23 +91,29 @@ public class RecommendFragment extends BaseFragment {
             viewModel.updatePage(getIdx(true), true, false);
         });
 
-        adapter = new RecommendMultiItemAdapter(new ArrayList<>());
-        adapter.setEnableLoadMore(true);
-        adapter.setOnLoadMoreListener(() -> {
+        mAdapter = new RecommendMultiItemAdapter(new ArrayList<>());
+        mAdapter.setEnableLoadMore(true);
+        mAdapter.setOnLoadMoreListener(() -> {
             page++;
             viewModel.updatePage(getIdx(false), false, false);
         }, recyclerView);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                VideoActivity.start(getContext(), mAdapter.getData().get(position).getIndexDataBean().getParam());
+            }
+        });
         //在setLayoutManager之前调用无效
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (position == adapter.getData().size()) {
+                if (position == mAdapter.getData().size()) {
                     return 2;
                 }
-                return adapter.getData().get(position).getSpanSize();
+                return mAdapter.getData().get(position).getSpanSize();
             }
         });
     }
@@ -118,7 +126,7 @@ public class RecommendFragment extends BaseFragment {
     }
 
     public int getIdx(boolean refresh) {
-        List<RecommendMultiItem> data = adapter.getData();
+        List<RecommendMultiItem> data = mAdapter.getData();
         if (data == null || data.size() == 0) {
             return 0;
         }

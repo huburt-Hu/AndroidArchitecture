@@ -30,6 +30,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //gradle 3.0 compile 重命名为 implementation
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
+    compile "com.android.support:design:$rootProject.ext.supportVersion"
     testImplementation "junit:junit:$rootProject.ext.junit"
     androidTestImplementation "com.android.support.test:runner:$rootProject.ext.runner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoCore"

@@ -1,6 +1,13 @@
 package com.huburt.app.mvvm.v.activity;
 
+import android.annotation.TargetApi;
+import android.content.Intent;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
 import android.graphics.Color;
+import android.graphics.drawable.Icon;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenuView;
@@ -15,6 +22,8 @@ import com.huburt.app.R;
 import com.huburt.app.base.BaseActivity;
 import com.huburt.app.mvvm.v.fragment.nav.NavHomeFragment;
 import com.jaeger.library.StatusBarUtil;
+
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +53,25 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            initShortcut();
+        }
+    }
+
+    //动态设置shortcut
+    @TargetApi(Build.VERSION_CODES.N_MR1)
+    private void initShortcut() {
+        ShortcutManager shortcutManager = getSystemService(ShortcutManager.class);
+        ShortcutInfo shortcut = new ShortcutInfo.Builder(this, "id1")
+                .setShortLabel("Web site")
+                .setLongLabel("Open the web site")
+                .setIcon(Icon.createWithResource(this, R.drawable.ic_dynamic_selected))
+                .setIntent(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://www.baidu.com/")))
+                .build();
+
+        shortcutManager.setDynamicShortcuts(Arrays.asList(shortcut));
+
     }
 
     private void initView() {

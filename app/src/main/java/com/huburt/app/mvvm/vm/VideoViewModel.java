@@ -1,0 +1,39 @@
+package com.huburt.app.mvvm.vm;
+
+import android.arch.core.util.Function;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Transformations;
+import android.arch.lifecycle.ViewModel;
+
+import com.huburt.app.entity.PlayUrl;
+import com.huburt.app.mvvm.m.VideoModel;
+import com.huburt.architecture.mvvm.ActionEntity;
+import com.huburt.architecture.mvvm.ActionLiveData;
+import com.huburt.architecture.mvvm.ActionLiveData2;
+import com.huburt.architecture.mvvm.ActionTransformations;
+
+/**
+ * Created by hubert
+ * <p>
+ * Created on 2017/12/6.
+ */
+
+public class VideoViewModel extends ViewModel {
+
+    private VideoModel videoModel = new VideoModel();
+    private MutableLiveData<String> param = new MutableLiveData<>();
+    private ActionLiveData<PlayUrl> playUrlLiveData;
+
+    public VideoViewModel() {
+//        playUrlLiveData = ActionTransformations.switchMap(param,)
+    }
+
+    public ActionLiveData<PlayUrl> getVideoLiveData() {
+        return playUrlLiveData;
+    }
+
+    public void getVideo(String aid) {
+        param.setValue(aid);
+    }
+}
