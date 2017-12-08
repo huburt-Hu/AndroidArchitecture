@@ -7,10 +7,12 @@ import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import timber.log.Timber;
+
 /**
- * Created by hubert
+ * Created by hubert on 2017/12/7.
  * <p>
- * Created on 2017/12/7.
+ * 用于ActionLiveData的转换，实现Action的传递
  */
 
 public class ActionTransformations {
@@ -33,22 +35,17 @@ public class ActionTransformations {
         return result;
     }
 
-
     @MainThread
     public static <X, Y> ActionLiveData<Y> switchMap(@NonNull LiveData<X> trigger,
-                                               @NonNull final Function<X, ActionLiveData<Y>> func) {
+                                                     @NonNull final Function<X, ActionLiveData<Y>> func) {
         final ActionLiveData<Y> result = new ActionLiveData<>();
-        result.addSource(trigger, new ActionObserver<X>() {
-            LiveData<Y> mSource;
-
-            @Override
-            public void onAction(int id, Object... args) {
-                result.setAction(id, args);
-            }
+        result.addSource(trigger, new Observer<X>() {
+            ActionLiveData<Y> mSource;
 
             @Override
             public void onChanged(@Nullable X x) {
-                LiveData<Y> newLiveData = func.apply(x);
+                Timber.i("onChanged:");
+                ActionLiveData<Y> newLiveData = func.apply(x);
                 if (mSource == newLiveData) {
                     return;
                 }
@@ -57,7 +54,12 @@ public class ActionTransformations {
                 }
                 mSource = newLiveData;
                 if (mSource != null) {
-                    result.addSource(mSource, new Observer<Y>() {
+                    result.addSource(mSource, new ActionObserver<Y>() {
+                        @Override
+                        public void onAction(int id, Object... args) {
+                            result.setAction(id, args);
+                        }
+
                         @Override
                         public void onChanged(@Nullable Y y) {
                             result.setValue(y);

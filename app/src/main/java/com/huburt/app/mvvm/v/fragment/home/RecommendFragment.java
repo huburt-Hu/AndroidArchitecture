@@ -9,6 +9,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -18,6 +19,7 @@ import com.huburt.app.entity.RecommendMultiItem;
 import com.huburt.app.mvvm.v.activity.VideoActivity;
 import com.huburt.app.mvvm.v.adapter.RecommendMultiItemAdapter;
 import com.huburt.app.mvvm.vm.RecommendViewModel;
+import com.huburt.architecture.mvvm.ActionObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +64,14 @@ public class RecommendFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(RecommendViewModel.class);
-        viewModel.getRecommendLiveData().observe(this, new Observer<List<RecommendMultiItem>>() {
+        viewModel.getRecommendLiveData().observe(this, new ActionObserver<List<RecommendMultiItem>>() {
+            @Override
+            public void onAction(int id, Object... args) {
+                if (id == 2) {
+                    Toast.makeText(getContext(), (String) args[0], Toast.LENGTH_SHORT).show();
+                }
+            }
+
             @Override
             public void onChanged(@Nullable List<RecommendMultiItem> recommendMultiItems) {
                 refreshLayout.setRefreshing(false);
@@ -81,6 +90,7 @@ public class RecommendFragment extends BaseFragment {
                 }
             }
         });
+
     }
 
     @Override

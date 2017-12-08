@@ -1,13 +1,11 @@
 package com.huburt.app.mvvm.m;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-
 import com.huburt.app.api.Api;
 import com.huburt.app.api.HomeService;
 import com.huburt.app.entity.IndexData;
 import com.huburt.app.entity.RecommendMultiItem;
 import com.huburt.architecture.http.RetrofitFactory;
+import com.huburt.architecture.mvvm.ActionLiveData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +24,9 @@ import timber.log.Timber;
 public class RecommendModel {
 
     private boolean isOdd = true;
-    private MutableLiveData<List<RecommendMultiItem>> liveData = new MutableLiveData<>();
+    private ActionLiveData<List<RecommendMultiItem>> liveData = new ActionLiveData<>();
 
-    public LiveData<List<RecommendMultiItem>> getRecommendData(int idx, String pull, int login_event) {
+    public ActionLiveData<List<RecommendMultiItem>> getRecommendData(int idx, String pull, int login_event) {
         Timber.i("getRecommendData(%s,%s,%s)", idx, pull, login_event);
         HomeService homeService = RetrofitFactory.getDefaultRetrofit(Api.RECOMMEND_BASE_URL, null)
                 .create(HomeService.class);
@@ -38,6 +36,7 @@ public class RecommendModel {
                 List<RecommendMultiItem> items = parseIndexData(response.body());
                 Timber.i("items:%s", items);
                 liveData.setValue(items);
+                liveData.setAction(2,"success");
             }
 
             @Override

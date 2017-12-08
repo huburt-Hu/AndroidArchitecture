@@ -8,5 +8,5 @@ package com.huburt.architecture.mvvm;
 
 public interface ActionCreator {
 
-    void setAction(int id, Object... args);
+    void setAction(int actionId, Object... args);
 }

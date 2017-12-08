@@ -171,9 +171,10 @@ public class VideoActivity extends BaseActivity {
 
         VideoViewModel viewModel = ViewModelProviders.of(this).get(VideoViewModel.class);
         viewModel.getVideoLiveData().observe(this, new ActionObserver<PlayUrl>() {
+
             @Override
-            public void onAction(int type) {
-                if (type == 1) {
+            public void onAction(int id, Object... args) {
+                if (id == 1) {
                     tvAv.setText("加载视频错误");
                     Toast.makeText(VideoActivity.this, "加载视频错误", Toast.LENGTH_SHORT).show();
                 }
